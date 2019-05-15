@@ -24,6 +24,9 @@ from django.utils.http import is_safe_url
 
 from rest_auth.utils import jwt_encode
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 # default User or custom User. Now both will work.
 User = get_user_model()
@@ -119,8 +122,11 @@ def _get_saml_client(domain):
         saml_settings['service']['sp']['name_id_format'] = settings.SAML2_AUTH['NAME_ID_FORMAT']
         
     if 'XMLSEC_BINARY' in settings.SAML2_AUTH:
+        logger.debug("XMLSEC_BINARY is set to {}".format(settings.SAML2_AUTH['XMLSEC_BINARY']))
         saml_settings['xmlsec_binary'] = settings.SAML2_AUTH['XMLSEC_BINARY']
-
+    
+    logger.debug("SAML_SETTINGS: {}".format(saml_settings))
+    
     spConfig = Saml2Config()
     spConfig.load(saml_settings)
     spConfig.allow_unknown_attributes = True
