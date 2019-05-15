@@ -117,6 +117,9 @@ def _get_saml_client(domain):
 
     if 'NAME_ID_FORMAT' in settings.SAML2_AUTH:
         saml_settings['service']['sp']['name_id_format'] = settings.SAML2_AUTH['NAME_ID_FORMAT']
+        
+    if 'XMLSEC_BINARY' in settings.SAML2_AUTH:
+        saml_settings['xmlsec_binary'] = settings.SAML2_AUTH['XMLSEC_BINARY']
 
     spConfig = Saml2Config()
     spConfig.load(saml_settings)
