@@ -125,6 +125,10 @@ def _get_saml_client(domain):
         logger.debug("XMLSEC_BINARY is set to {}".format(settings.SAML2_AUTH['XMLSEC_BINARY']))
         saml_settings['xmlsec_binary'] = settings.SAML2_AUTH['XMLSEC_BINARY']
     
+    if 'DISABLE_SSL_CERTIFICATE_VALIDATION' in settings.SAML2_AUTH:
+        logger.debug("DISABLE_SSL_CERTIFICATE_VALIDATION is set to {}".format(settings.SAML2_AUTH['DISABLE_SSL_CERTIFICATE_VALIDATION']))
+        saml_settings['disable_ssl_certificate_validation'] = settings.SAML2_AUTH['DISABLE_SSL_CERTIFICATE_VALIDATION']
+    
     logger.debug("SAML_SETTINGS: {}".format(saml_settings))
     
     spConfig = Saml2Config()
